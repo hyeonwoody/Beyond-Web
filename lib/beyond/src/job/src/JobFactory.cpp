@@ -1,0 +1,47 @@
+#include "Job.h"
+#include "Copy.h"
+#include "Move.h"
+
+JobFactory* JobFactory::Create() {
+    JobFactory* factory = new JobFactory();
+    factory->registerJob(JobType::COPY, &CopyJob::Create);
+    factory->registerJob(JobType::MOVE, &MoveJob::Create);
+    return factory;
+}
+
+JobFactory::~JobFactory(){
+    this->unRegisterJob(JobType::COPY);
+    this->unRegisterJob(JobType::MOVE);
+}
+
+void JobFactory::registerJob(JobType type, CreateCallback cb) {
+    createJobMap[type] = cb;
+}
+
+void JobFactory::unRegisterJob(JobType type) {
+    createJobMap.erase(type);
+}
+
+IJob* JobFactory::CreateJob(CFlag* flag) {
+
+    JobType type = getJobType(flag->index);
+    if (type == JobType::UNKNOWN) {
+        return nullptr;
+    }
+    
+    auto it = createJobMap.find(type);
+	if (it != createJobMap.end()){
+		return (it->second());
+	}
+	return nullptr;
+}
+
+JobType JobFactory::getJobType(int index) {
+    switch (index) {
+        case 0: return JobType::COPY;
+        case 1: return JobType::MOVE;
+        case 2: return JobType::STREAM;
+        case 3: return JobType::CUT;
+        default: return JobType::UNKNOWN;
+    }
+}

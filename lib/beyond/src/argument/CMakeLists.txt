@@ -1,0 +1,9 @@
+file(GLOB_RECURSE ARGUMENT_SOURCES CONFIGURE_DEPENDS
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
+)
+
+target_sources(${PROJECT_NAME} PRIVATE ${ARGUMENT_SOURCES})
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
