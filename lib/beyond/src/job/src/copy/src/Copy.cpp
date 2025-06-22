@@ -74,7 +74,7 @@ void CopyJob::Execute() {
     }
     createDirectory(getOutputTask()->GetPath());
     getFileBridgeTask()->Transfer(*ifstream, *ofstream);
-    std::cout << "[CopyJob] Copied from " << input << " to " << output << "\n";
+    std::cout << "🔊[CopyJob] Copied from " << input << " to " << output << "\n";
     delete ifstream;
     delete ofstream;
 }

@@ -1,17 +1,34 @@
 #include "Job.h"
+
+#ifdef ENABLE_COPY
 #include "Copy.h"
+#endif
+
+#ifdef ENABLE_MOVE
 #include "Move.h"
+#endif
 
 JobFactory* JobFactory::Create() {
     JobFactory* factory = new JobFactory();
+
+#ifdef ENABLE_COPY
     factory->registerJob(JobType::COPY, &CopyJob::Create);
+#endif
+
+#ifdef ENABLE_MOVE
     factory->registerJob(JobType::MOVE, &MoveJob::Create);
+#endif
+
     return factory;
 }
 
 JobFactory::~JobFactory(){
+#ifdef ENABLE_COPY
     this->unRegisterJob(JobType::COPY);
+#endif
+#ifdef ENABLE_MOVE
     this->unRegisterJob(JobType::MOVE);
+#endif
 }
 
 void JobFactory::registerJob(JobType type, CreateCallback cb) {
