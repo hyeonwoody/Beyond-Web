@@ -6,7 +6,7 @@
 
 class MoveJob : public IJob {
     private:
-        IJob* copyJob = CopyJob::Create();
+        IJob* copyJob;
     public:
         static IJob* Create();
         ~MoveJob();
