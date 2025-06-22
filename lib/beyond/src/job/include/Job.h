@@ -13,6 +13,16 @@ enum class JobType {
     CUT,
 };
 
+inline const char* JobTypeToString(JobType type) {
+    switch(type) {
+        case JobType::UNKNOWN: return "UNKNOWN";
+        case JobType::COPY: return "COPY";
+        case JobType::MOVE: return "MOVE";
+        case JobType::STREAM: return "STREAM";
+        case JobType::CUT: return "CUT";
+        default: return "INVALID_JOBTYPE";
+    }
+}
 
 
 class IJob {

@@ -33,6 +33,7 @@ IJob* JobFactory::CreateJob(CFlag* flag) {
 	if (it != createJobMap.end()){
 		return (it->second());
 	}
+    std::cout << "📢[CreateJob] Type " << JobTypeToString(type) << " is not available in this application." << std::endl;
 	return nullptr;
 }
 
