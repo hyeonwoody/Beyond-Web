@@ -16,35 +16,35 @@ JobFactory* JobFactory::Create() {
     JobFactory* factory = new JobFactory();
 
 #ifdef ENABLE_COPY
-    factory->registerJob(JobType::COPY, &CopyJob::Create);
+    factory->add(JobType::COPY, &CopyJob::Create);
 #endif
 
 #ifdef ENABLE_MOVE
-    factory->registerJob(JobType::MOVE, &MoveJob::Create);
+    factory->add(JobType::MOVE, &MoveJob::Create);
 #endif
 #ifdef ENABLE_SYMBOLICLINK
-    factory->registerJob(JobType::SYMBOLICLINK, &SymbolicLinkJob::Create);
+    factory->add(JobType::SYMBOLICLINK, &SymbolicLinkJob::Create);
 #endif
     return factory;
 }
 
 JobFactory::~JobFactory(){
 #ifdef ENABLE_COPY
-    this->unRegisterJob(JobType::COPY);
+    this->remove(JobType::COPY);
 #endif
 #ifdef ENABLE_MOVE
-    this->unRegisterJob(JobType::MOVE);
+    this->remove(JobType::MOVE);
 #endif
 #ifdef ENABLE_SYMBOLICLINK
-    this->unRegisterJob(JobType::SYMBOLICLINK);
+    this->remove(JobType::SYMBOLICLINK);
 #endif
 }
 
-void JobFactory::registerJob(JobType type, CreateCallback cb) {
+void JobFactory::add(JobType type, CreateCallback cb) {
     createJobMap[type] = cb;
 }
 
-void JobFactory::unRegisterJob(JobType type) {
+void JobFactory::remove(JobType type) {
     createJobMap.erase(type);
 }
 

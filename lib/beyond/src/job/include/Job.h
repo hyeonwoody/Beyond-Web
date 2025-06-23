@@ -51,7 +51,7 @@ class JobFactory
     public:
         IJob* CreateJob(CFlag* flag);
     private:
-        void registerJob(const JobType type, CreateCallback cb);
-        void unRegisterJob(const JobType type);
+        void add(const JobType type, CreateCallback cb);
+        void remove(const JobType type);
         JobType getJobType(const int index);
 };

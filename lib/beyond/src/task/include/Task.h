@@ -36,6 +36,6 @@ class TaskFactory
         ~TaskFactory();
         CreateCallback GetCreate(TaskType type);
     private:
-        void registerTask(const TaskType type, CreateCallback cb);
-        void unRegisterTask(const TaskType type);
+        void add(const TaskType type, CreateCallback cb);
+        void remove(const TaskType type);
 };
