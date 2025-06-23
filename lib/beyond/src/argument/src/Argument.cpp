@@ -36,6 +36,7 @@ void CArgumentMapper::initFlags() {
     this->flags[flagIdx++] = CFlag::Create("-mv,--move", "Move from input_url (-i) to output_url (-o), must be the file protocol", &flagVariables.move, flagIdx);
     this->flags[flagIdx++] = CFlag::Create("-st,--stream", "Stream from input_url (-i) to output_url (-o)", &flagVariables.stream, flagIdx);
     this->flags[flagIdx++] = CFlag::Create("-c,--cut", "Video cut with certain part, and duration", &flagVariables.cut, flagIdx);
+    this->flags[flagIdx++] = CFlag::Create("-sy,--symbolic", "Create symbolic link from input_url (-i) to output_url (-o)", &flagVariables.cut, flagIdx);
 }   
 
 CArgumentMapper::~CArgumentMapper()
@@ -67,15 +68,15 @@ int CArgumentMapper::Parse(int argc, char** argv) {
     }
 
 
-    std::cout<<"[ParseArgument] argc : "<<argc<<std::endl;
-    std::cout<<"[ParseArgument] argv : "<<argv<<std::endl;
-    for (int i=0; i < args.size()-1; ++i) {
+    std::cout<<"🔊[CArgumentMapper::Parse] argc : "<<argc<<std::endl;
+    for (int i=0; i < args.size(); ++i) {
         if (argv[i] == nullptr) {
-            std::cerr << "Parse error: argv[" << i << "] is nullptr" << std::endl;
+            std::cerr << "🔊[CArgumentMapper::Parse] Parse error: argv[" << i << "] is nullptr" << std::endl;
             return false;
         }
         std::string& arg = args[i];
         if (parseFlags(arg)) {
+            std::cout<<"🔊[CArgumentMapper::Parse] parsed : "<<arg<<std::endl;
             continue;
         }
         std::string& val = args[i+1];

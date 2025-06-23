@@ -5,7 +5,7 @@
 #include <cstring>
 #include <vector>
 #define OPTION_NUM 6
-#define FLAG_NUM 4
+#define FLAG_NUM 5
 
 struct SOptionVariables{
 std::string inputUrl;

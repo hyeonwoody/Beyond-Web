@@ -8,6 +8,10 @@
 #include "Move.h"
 #endif
 
+#ifdef ENABLE_SYMBOLICLINK
+#include "SymbolicLink.h"
+#endif
+
 JobFactory* JobFactory::Create() {
     JobFactory* factory = new JobFactory();
 
@@ -18,7 +22,9 @@ JobFactory* JobFactory::Create() {
 #ifdef ENABLE_MOVE
     factory->registerJob(JobType::MOVE, &MoveJob::Create);
 #endif
-
+#ifdef ENABLE_SYMBOLICLINK
+    factory->registerJob(JobType::SYMBOLICLINK, &SymbolicLinkJob::Create);
+#endif
     return factory;
 }
 
@@ -28,6 +34,9 @@ JobFactory::~JobFactory(){
 #endif
 #ifdef ENABLE_MOVE
     this->unRegisterJob(JobType::MOVE);
+#endif
+#ifdef ENABLE_SYMBOLICLINK
+    this->unRegisterJob(JobType::SYMBOLICLINK);
 #endif
 }
 
@@ -60,6 +69,7 @@ JobType JobFactory::getJobType(int index) {
         case 1: return JobType::MOVE;
         case 2: return JobType::STREAM;
         case 3: return JobType::CUT;
+        case 4: return JobType::SYMBOLICLINK;
         default: return JobType::UNKNOWN;
     }
 }

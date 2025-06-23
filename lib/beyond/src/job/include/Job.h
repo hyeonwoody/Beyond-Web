@@ -11,6 +11,7 @@ enum class JobType {
     MOVE,
     STREAM,
     CUT,
+    SYMBOLICLINK,
 };
 
 inline const char* JobTypeToString(JobType type) {
