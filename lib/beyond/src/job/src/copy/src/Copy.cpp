@@ -19,21 +19,21 @@ void CopyJob::SetVariables(const SOptionVariables* options, const SFlagVariables
 
     auto createTaskFunc = factory->GetCreate(TaskType::INPUT);
     if (!createTaskFunc) {
-        std::cerr << "Failed to get INPUT task creator" << std::endl;
+        std::cerr << "⛔[CopyJob::SetVariables] Failed to get INPUT task creator" << std::endl;
         return;
     }
     tasks->Add(createTaskFunc(std::any(std::string(options->inputUrl))));
 
     createTaskFunc = factory->GetCreate(TaskType::OUTPUT);
     if (!createTaskFunc) {
-        std::cerr << "Failed to get INPUT task creator" << std::endl;
+        std::cerr << "⛔[CopyJob::SetVariables] Failed to get INPUT task creator" << std::endl;
         return;
     }
     tasks->Add(createTaskFunc(std::any(std::string(options->outputUrl))));
 
     createTaskFunc = factory->GetCreate(TaskType::FILEBRIDGE);
     if (!createTaskFunc) {
-        std::cerr << "Failed to get FILEBRIDGE task creator" << std::endl;
+        std::cerr << "⛔[CopyJob::SetVariables] Failed to get FILEBRIDGE task creator" << std::endl;
         return;
     }
     tasks->Add(createTaskFunc(std::any{}));
@@ -61,20 +61,20 @@ void CopyJob::Execute() {
 
     auto ifstream = getInputTask()->GetStream();
     if (!ifstream || !ifstream->is_open()) {
-        std::cerr << "[CopyJob] Cannot open input file: " << input << "\n";
+        std::cerr << "⛔[CopyJob::Execute]Cannot open input file: " << input << "\n";
         delete ifstream;
         return;
     }
     auto ofstream = getOutputTask()->GetStream();
     if (!ofstream || !ofstream->is_open()) {
-        std::cerr << "[CopyJob] Cannot open output file: " << output << "\n";
+        std::cerr << "⛔[CopyJob::Execute]Cannot open output file: " << output << "\n";
         delete ifstream;
         delete ofstream;
         return;
     }
     createDirectory(getOutputTask()->GetPath());
     getFileBridgeTask()->Transfer(*ifstream, *ofstream);
-    std::cout << "🔊[CopyJob] Copied from " << input << " to " << output << "\n";
+    std::cout << "🔊[CopyJob::Execute] Copied from " << input << " to " << output << "\n";
     delete ifstream;
     delete ofstream;
 }
@@ -83,7 +83,7 @@ void CopyJob::createDirectory(const std::string& path) {
     if (!path.empty() && !fs::exists(path)) {
         std::error_code ec;
         if (!fs::create_directories(path, ec)) {
-            std::cerr << "[CopyJob] Failed to create output directory: " << path << "\n";
+            std::cerr << "⛔[CopyJob::createDirectory] Failed to create output directory: " << path << "\n";
             std::cerr << "Reason: " << ec.message() << "\n";
             return;
         }

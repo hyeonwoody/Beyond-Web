@@ -26,10 +26,10 @@ public:
         const std::string& inputPath = GetUrl();
         std::error_code ec;
         if (fs::remove(inputPath, ec)) {
-            std::cout << "[MoveJob] Removed original file: " << inputPath << "\n";
+            std::cout << "🔊[IPut::Remove] Removed original file: " << inputPath << "\n";
             return true;
         } 
-        std::cerr << "[MoveJob] Failed to remove original file: " << inputPath
+        std::cerr << "🔊[IPut::Remove] Failed to remove original file: " << inputPath
                       << " (" << ec.message() << ")\n";
         return false;
     }

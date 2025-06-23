@@ -14,8 +14,13 @@ Beyond* Beyond::Create(CArgumentMapper* argument) {
 
     for (int i = 0; i < FLAG_NUM; ++i) {
         if (pFlag[i]->used) {
-            std::cout<<"[Beyond] argc : "<<pFlag[i]->ptr<<std::endl;
+            std::cout<<"🔊[Beyond::Create] argc : "<<pFlag[i]->ptr<<std::endl;
             IJob* pJob = pJobFactory->CreateJob(pFlag[i]);
+            if (pJob == nullptr) {
+                std::cout << "⚠️[Beyond::Create] Corresponding job not found. Skipping current job and moving to the next one." << std::endl;
+                continue;
+            }
+                
             pJob->SetVariables(argument->GetOptionVariables(), argument->GetFlagVariables());
             pJobs->Add(pJob);
         }
@@ -24,7 +29,7 @@ Beyond* Beyond::Create(CArgumentMapper* argument) {
     COption** pOption = argument->GetOptions();
     for (int i = 0; i <OPTION_NUM; ++i) {
         if (pOption[i]->used) {
-            std::cout<<"[Beyond] argc : "<<pOption[i]->ptr<<std::endl;
+            std::cout<<"🔊[Beyond] argc : "<<pOption[i]->ptr<<std::endl;
         }
     }
     
@@ -44,7 +49,7 @@ int Beyond::Run()
 }
 
 void Usage() {
-    std::cout<<"Usage : Beyond -[Option Parameter] -[Flag Parameter]"<<std::endl;
+    std::cout<<"📢Usage: Beyond -[Option Parameter] -[Flag Parameter]"<<std::endl;
 }
 
 int main (int argc, char **argv) {
