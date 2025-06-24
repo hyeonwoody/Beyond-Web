@@ -34,10 +34,15 @@ Beyond* Beyond::Create(CArgumentMapper* argument) {
             kamsi->Debug("Create", "argc : " + pOption[i]->shortName);
         }
     }
-    
+    delete pJobFactory;
     beyond->jobs = pJobs;
     beyond->kamsi = kamsi;
     return beyond;
+}
+
+Beyond::~Beyond() {
+    delete jobs;
+    delete kamsi;
 }
 
 int Beyond::SortJob() {

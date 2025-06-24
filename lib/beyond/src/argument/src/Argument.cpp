@@ -56,6 +56,8 @@ CArgumentMapper::~CArgumentMapper()
         }
     }
     delete[] flags;
+
+    delete kamsi;
 }
 
 int CArgumentMapper::Parse(int argc, char** argv) {

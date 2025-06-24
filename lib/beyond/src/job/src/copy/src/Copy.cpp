@@ -7,12 +7,13 @@ IJob* CopyJob::Create() {
     CopyJob* job = new CopyJob();
     job->type = JobType::COPY;
     job->tasks = Tasks::Create();
-    job->kamsi = Kamsi::Create("CopyJob", "")
+    job->kamsi = Kamsi::Create("CopyJob", "Init");
     return job;
 }
 
 CopyJob::~CopyJob() {
     delete tasks;
+    delete kamsi;
 }
 
 void CopyJob::SetVariables(const SOptionVariables* options, const SFlagVariables* flags) {

@@ -13,6 +13,7 @@ IJob* SymbolicLinkJob::Create() {
 
 SymbolicLinkJob::~SymbolicLinkJob() {
     delete tasks;
+    delete kamsi;
 }
 
 void SymbolicLinkJob::SetVariables(const SOptionVariables* options, const SFlagVariables* flags) {

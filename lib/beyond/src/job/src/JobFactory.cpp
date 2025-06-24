@@ -38,6 +38,7 @@ JobFactory::~JobFactory(){
 #ifdef ENABLE_SYMBOLICLINK
     this->remove(JobType::SYMBOLICLINK);
 #endif
+    delete kamsi;
 }
 
 void JobFactory::add(JobType type, CreateCallback cb) {

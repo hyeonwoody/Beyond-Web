@@ -1,7 +1,16 @@
 #include "Jobs.h"
 
 Jobs* Jobs::Create() {
-    return new Jobs();
+    Jobs* jobs = new Jobs();
+    jobs->kamsi = Kamsi::Create("Jobs", "Init");
+    return jobs;
+}
+
+Jobs::~Jobs() {
+    for (IJob* job : jobs) {
+        delete job;
+    }
+    delete kamsi;
 }
 
 void Jobs::Add(IJob* job) {
