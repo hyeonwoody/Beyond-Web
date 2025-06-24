@@ -3,8 +3,6 @@
 #include <cstring>
 #include <stdio.h>
 
-Beyond::Beyond() {}
-
 Beyond* Beyond::Create(CArgumentMapper* argument) {
     Beyond* beyond = new Beyond();
     Kamsi* kamsi = Kamsi::Create("Beyond", "Init");

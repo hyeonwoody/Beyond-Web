@@ -6,9 +6,11 @@ class Beyond
 private:
     Jobs* jobs;
     Kamsi* kamsi;
+private:
+    Beyond() {};
 public:
-    Beyond();
-    
+
+    ~Beyond();
     static Beyond* Create(CArgumentMapper *argument);
     void pushToJob(CFlag* flag);
     int SortJob();
