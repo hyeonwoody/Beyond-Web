@@ -14,7 +14,7 @@
 
 JobFactory* JobFactory::Create() {
     JobFactory* factory = new JobFactory();
-
+    factory->kamsi = Kamsi::Create("JobFactory", "Init");
 #ifdef ENABLE_COPY
     factory->add(JobType::COPY, &CopyJob::Create);
 #endif
@@ -59,7 +59,9 @@ IJob* JobFactory::CreateJob(CFlag* flag) {
 	if (it != createJobMap.end()){
 		return (it->second());
 	}
-    std::cout << "📢[CreateJob] Type " << JobTypeToString(type) << " is not available in this application." << std::endl;
+    char buf[64];
+    std::snprintf(buf, sizeof(buf), "Type %s is not available in this application.", JobTypeToString(type));
+    kamsi->Info("CreateJob", buf);
 	return nullptr;
 }
 

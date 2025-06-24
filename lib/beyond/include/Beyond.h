@@ -1,9 +1,11 @@
 #include "Argument.h"
 #include "Jobs.h"
+#include "Kamsi.h"
 class Beyond
 {
 private:
     Jobs* jobs;
+    Kamsi* kamsi;
 public:
     Beyond();
     

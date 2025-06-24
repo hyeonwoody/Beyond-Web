@@ -1,6 +1,6 @@
 #pragma once
 #include "StringParser.h"
-
+#include "Kamsi.h"
 #include <string>
 #include <cstring>
 #include <vector>
@@ -118,6 +118,7 @@ private:
     SFlagVariables flagVariables;
     COption** options;
     CFlag** flags;
+    Kamsi* kamsi;
 
     public:
         static CArgumentMapper* Create(); 

@@ -8,7 +8,7 @@ CArgumentMapper* CArgumentMapper::Create() {
     CArgumentMapper* arg = new CArgumentMapper();
     arg->initOptions();
     arg->initFlags();
-    
+    arg->kamsi = Kamsi::Create("ArgumentMapper", "Init");
     return arg;
 }
 
@@ -67,16 +67,20 @@ int CArgumentMapper::Parse(int argc, char** argv) {
         args.push_back(std::string(argv[i]));    
     }
 
-
-    std::cout<<"🔊[CArgumentMapper::Parse] argc : "<<argc<<std::endl;
+    kamsi->Debug("Parse", "argc" + argc);
+    
     for (int i=0; i < args.size(); ++i) {
         if (argv[i] == nullptr) {
-            std::cerr << "🔊[CArgumentMapper::Parse] Parse error: argv[" << i << "] is nullptr" << std::endl;
+            char buf[128];
+            std::sprintf(buf, "Parse error: argv[%d] is nullptr", i);
+            kamsi->Debug("Parse", buf);
             return false;
         }
         std::string& arg = args[i];
         if (parseFlags(arg)) {
-            std::cout<<"🔊[CArgumentMapper::Parse] parsed : "<<arg<<std::endl;
+            char buf[128];
+            std::sprintf(buf, "parsed : %s", arg.c_str());
+            kamsi->Debug("Parse", buf);
             continue;
         }
         std::string& val = args[i+1];

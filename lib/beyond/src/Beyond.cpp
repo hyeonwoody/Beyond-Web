@@ -7,6 +7,9 @@ Beyond::Beyond() {}
 
 Beyond* Beyond::Create(CArgumentMapper* argument) {
     Beyond* beyond = new Beyond();
+    Kamsi* kamsi = Kamsi::Create("Beyond", "Init");
+    
+
     CFlag** pFlag = argument->GetFlags();
     
     JobFactory* pJobFactory = JobFactory::Create();
@@ -14,10 +17,11 @@ Beyond* Beyond::Create(CArgumentMapper* argument) {
 
     for (int i = 0; i < FLAG_NUM; ++i) {
         if (pFlag[i]->used) {
-            std::cout<<"🔊[Beyond::Create] argc : "<<pFlag[i]->ptr<<std::endl;
+            
+            kamsi->Debug("Create", "argc : " + pFlag[i]->shortName);
             IJob* pJob = pJobFactory->CreateJob(pFlag[i]);
             if (pJob == nullptr) {
-                std::cout << "⚠️[Beyond::Create] Corresponding job not found. Skipping current job and moving to the next one." << std::endl;
+                kamsi->Warning("Create", "Corresponding job not found. Skipping current job and moving to the next one.");
                 continue;
             }
                 
@@ -29,11 +33,12 @@ Beyond* Beyond::Create(CArgumentMapper* argument) {
     COption** pOption = argument->GetOptions();
     for (int i = 0; i <OPTION_NUM; ++i) {
         if (pOption[i]->used) {
-            std::cout<<"🔊[Beyond] argc : "<<pOption[i]->ptr<<std::endl;
+            kamsi->Debug("Create", "argc : " + pOption[i]->shortName);
         }
     }
     
     beyond->jobs = pJobs;
+    beyond->kamsi = kamsi;
     return beyond;
 }
 

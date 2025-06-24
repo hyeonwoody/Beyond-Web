@@ -1,6 +1,7 @@
 #pragma once
 #include "Argument.h"
 #include "Tasks.h"
+#include "Kamsi.h"
 #include <stdlib.h>
 #include <map>
 #include <vector>
@@ -45,6 +46,7 @@ class JobFactory
         typedef IJob* (*CreateCallback)();
         typedef std::map<JobType, CreateCallback> CreateJobMap;
         CreateJobMap createJobMap;
+        Kamsi* kamsi;
     public:
         static JobFactory* Create();
         ~JobFactory();

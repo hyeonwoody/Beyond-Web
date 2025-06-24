@@ -3,9 +3,12 @@
 #include "Input.h"
 #include "Output.h"
 #include "FileBridge.h"
-#include "string"
+#include "Kamsi.h"
+#include <string>
 
 class SymbolicLinkJob : public IJob {
+    private:
+        Kamsi* kamsi;
     public:
         static IJob* Create();
         ~SymbolicLinkJob();

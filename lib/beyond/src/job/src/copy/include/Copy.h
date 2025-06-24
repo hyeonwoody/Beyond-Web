@@ -6,6 +6,8 @@
 #include "string"
 
 class CopyJob : public IJob {
+    private:
+        Kamsi* kamsi;
     public:
         static IJob* Create();
         ~CopyJob();

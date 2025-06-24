@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(${PROJECT_NAME} STATIC
 )
 
+
 add_subdirectory(src/argument)
 add_subdirectory(src/job)
 add_subdirectory(src/task)
@@ -19,4 +20,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/../../util/include
 )
 
-target_link_libraries(${PROJECT_NAME} PUBLIC ${UTIL_LIBRARY})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${UTIL_LIBRARY} kamsi)

@@ -11,7 +11,11 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 
+file(GLOB KAMSI_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/kamsi/src/*.cpp")
 file(GLOB UTIL_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/util/src/*.cpp")
+
+add_subdirectory(kamsi)
+
 add_library(util STATIC ${UTIL_SOURCES})
 target_include_directories(util PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/util/include)
 
@@ -26,6 +30,5 @@ add_executable(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/beyond/include
 )
-
 # ✅ 라이브러리 연결
-target_link_libraries(${PROJECT_NAME} PRIVATE beyond util)
+target_link_libraries(${PROJECT_NAME} PRIVATE beyond kamsi util)
