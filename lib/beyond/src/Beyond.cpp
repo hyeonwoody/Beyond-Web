@@ -53,7 +53,7 @@ int Beyond::SortJob() {
 int Beyond::Run()
 {
     int ret = jobs->Start();
-    return 0;
+    return ret;
 }
 
 void Usage() {
