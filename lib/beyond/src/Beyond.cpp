@@ -3,7 +3,7 @@
 #include <cstring>
 #include <stdio.h>
 
-Beyond* Beyond::Create(CArgumentMapper* argument) {
+Beyond* Beyond::Create(ArgumentMapper* argument) {
     Beyond* beyond = new Beyond();
     Kamsi* kamsi = Kamsi::Create("Beyond", "Init");
     
@@ -62,7 +62,7 @@ void Usage() {
 
 int main (int argc, char **argv) {
      
-    CArgumentMapper* pArgument = CArgumentMapper::Create();
+    ArgumentMapper* pArgument = ArgumentMapper::Create();
     pArgument->Parse(argc, argv);
 
     Beyond* beyond = Beyond::Create(pArgument);

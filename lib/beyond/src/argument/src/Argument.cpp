@@ -2,10 +2,10 @@
 
 
 
-CArgumentMapper::CArgumentMapper() {}
+ArgumentMapper::ArgumentMapper() {}
 
-CArgumentMapper* CArgumentMapper::Create() {
-    CArgumentMapper* arg = new CArgumentMapper();
+ArgumentMapper* ArgumentMapper::Create() {
+    ArgumentMapper* arg = new ArgumentMapper();
     arg->initOptions();
     arg->initFlags();
     arg->kamsi = Kamsi::Create("ArgumentMapper", "Init");
@@ -15,7 +15,7 @@ CArgumentMapper* CArgumentMapper::Create() {
 /**
  * When you add option, make sure you edit the OPTION_NUM in Argument.h
 */
-void CArgumentMapper::initOptions() {
+void ArgumentMapper::initOptions() {
     this->options = new COption*[OPTION_NUM];
     int optionIdx = 0;
     this->options[optionIdx++] = COption::Create("-i,--input", "Input target", &optionVariables.inputUrl, optionIdx, true);
@@ -29,7 +29,7 @@ void CArgumentMapper::initOptions() {
 /**
  * When you add  flag, make sure you edit the FLAG_NUM in Argument.h
 */
-void CArgumentMapper::initFlags() {
+void ArgumentMapper::initFlags() {
     this->flags = new CFlag*[OPTION_NUM];  // Allocate an array of SFlag pointers
     int flagIdx = 0;
     this->flags[flagIdx++] = CFlag::Create("-cp,--copy", "Copy from input_url (-i) to output_url (-o), usually the file protocol", &flagVariables.copy, flagIdx);
@@ -39,7 +39,7 @@ void CArgumentMapper::initFlags() {
     this->flags[flagIdx++] = CFlag::Create("-sy,--symbolic", "Create symbolic link from input_url (-i) to output_url (-o)", &flagVariables.cut, flagIdx);
 }   
 
-CArgumentMapper::~CArgumentMapper()
+ArgumentMapper::~ArgumentMapper()
 {
     for (int i = 0; i < OPTION_NUM; i++) {
         if (options[i]) {
@@ -60,7 +60,7 @@ CArgumentMapper::~CArgumentMapper()
     delete kamsi;
 }
 
-int CArgumentMapper::Parse(int argc, char** argv) {
+int ArgumentMapper::Parse(int argc, char** argv) {
     
     COption** options = this->GetOptions();
     CFlag** flags = this->GetFlags();
@@ -93,7 +93,7 @@ int CArgumentMapper::Parse(int argc, char** argv) {
     return 0;
 }
 
-bool CArgumentMapper::parseOptions(std::string arg, std::string val) {
+bool ArgumentMapper::parseOptions(std::string arg, std::string val) {
     for (int j = 0; j < OPTION_NUM; j++) {
         if (options[j]->Compare(arg)) {
             options[j]->Assign(val);
@@ -104,7 +104,7 @@ bool CArgumentMapper::parseOptions(std::string arg, std::string val) {
     return false;
 }
 
-bool CArgumentMapper::parseFlags(std::string arg) {
+bool ArgumentMapper::parseFlags(std::string arg) {
     for (int j = 0; j < FLAG_NUM; j++) {
         if (flags[j]->Compare(arg)) {
             //flags[j]->Assign(val);
@@ -115,18 +115,18 @@ bool CArgumentMapper::parseFlags(std::string arg) {
     return false;
 } 
 
-COption** CArgumentMapper::GetOptions() {
+COption** ArgumentMapper::GetOptions() {
     return this->options;
 }
 
-CFlag** CArgumentMapper::GetFlags() {
+CFlag** ArgumentMapper::GetFlags() {
     return this->flags;
 }
 
-const SOptionVariables* CArgumentMapper::GetOptionVariables() {
+const SOptionVariables* ArgumentMapper::GetOptionVariables() {
     return &this->optionVariables;
 }
 
-const SFlagVariables* CArgumentMapper::GetFlagVariables() {
+const SFlagVariables* ArgumentMapper::GetFlagVariables() {
     return &this->flagVariables;
 }

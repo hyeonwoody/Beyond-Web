@@ -111,7 +111,7 @@ class CFlag : public BaseArgument<CFlag> {
 
 
 
-class CArgumentMapper
+class ArgumentMapper
 {
 private:
     SOptionVariables optionVariables;
@@ -121,15 +121,15 @@ private:
     Kamsi* kamsi;
 
     public:
-        static CArgumentMapper* Create(); 
-        ~CArgumentMapper();
+        static ArgumentMapper* Create(); 
+        ~ArgumentMapper();
         int Parse(int argc, char** argv);
         COption** GetOptions();
         CFlag** GetFlags();
         const SOptionVariables* GetOptionVariables();
         const SFlagVariables* GetFlagVariables();
     private:
-        CArgumentMapper();
+        ArgumentMapper();
         void initOptions();
         void initFlags();
         bool parseOptions(std::string arg, std::string val);

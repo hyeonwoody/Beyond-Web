@@ -11,7 +11,7 @@ private:
 public:
 
     ~Beyond();
-    static Beyond* Create(CArgumentMapper *argument);
+    static Beyond* Create(ArgumentMapper *argument);
     void pushToJob(CFlag* flag);
     int SortJob();
     int Run();
