@@ -20,7 +20,7 @@
 
 #ifndef AVUTIL_TIME_H
 #define AVUTIL_TIME_H
-
+#include </usr/include/time.h>
 #include <stdint.h>
 
 /**
