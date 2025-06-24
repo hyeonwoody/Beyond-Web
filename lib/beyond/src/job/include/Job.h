@@ -32,6 +32,8 @@ class IJob {
         JobType type;
         Tasks* tasks;
     public:
+        pthread_t thread;
+    public:
         virtual ~IJob() {};
         virtual void Execute() = 0;
         virtual void SetVariables(const SOptionVariables* options, const SFlagVariables* flags)  = 0;

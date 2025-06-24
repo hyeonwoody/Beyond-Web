@@ -1,15 +1,31 @@
 #pragma once
-#include "vector"
 #include "Job.h"
+#include "Kamsi.h"
+#include <vector>
+#include <pthread.h>
+#include <mutex>
+
 
 class Jobs {
+    private:
         std::vector<IJob*> jobs;
+        std::mutex jobMutex;
+
+        Kamsi* kamsi;
+    private:
+        struct ExecutorParam {
+            Jobs* jobs;
+            IJob* job;
+        };
     public:
         static Jobs* Create();
         ~Jobs();
         void Add(IJob* job);
+        void Remove(IJob* job);
         void Sort();
         int Start();
-};
+        static void* jobExecutor(void* arg);
+        static void* jobCleanUp(IJob* job);
+}; 
 
 
