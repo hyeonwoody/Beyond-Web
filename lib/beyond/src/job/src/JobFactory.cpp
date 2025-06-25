@@ -15,6 +15,7 @@
 JobFactory* JobFactory::Create() {
     JobFactory* factory = new JobFactory();
     factory->kamsi = Kamsi::Create("Init");
+    factory->kamsi->Register();
     Kamsi* jobKamsi = Kamsi::Create("Init");
 
 #ifdef ENABLE_COPY
@@ -45,7 +46,11 @@ JobFactory::~JobFactory(){
 #ifdef ENABLE_SYMBOLICLINK
     this->remove(JobType::SYMBOLICLINK);
 #endif
-    delete kamsi;
+    
+    if (kamsi) {
+        kamsi->UnRegister();
+        kamsi = nullptr;
+    }
 }
 
 void JobFactory::add(JobType type, CreateCallback cb) {

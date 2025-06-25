@@ -8,12 +8,16 @@ IJob* SymbolicLinkJob::Create(Kamsi* kamsi) {
     job->type = JobType::SYMBOLICLINK;
     job->tasks = Tasks::Create();
     job->kamsi = kamsi;
+    job->kamsi->Register();
     return job;
 }
 
 SymbolicLinkJob::~SymbolicLinkJob() {
     delete tasks;
-    delete kamsi;
+    if (kamsi) {
+        kamsi->UnRegister();
+        kamsi = nullptr;
+    }
 }
 
 void SymbolicLinkJob::SetVariables(const SOptionVariables* options, const SFlagVariables* flags) {

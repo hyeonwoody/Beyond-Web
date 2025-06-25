@@ -1,5 +1,6 @@
 #pragma once
 #include "Class.h"
+#include "Kamsi.h"
 #include <map>
 #include <string>
 #include <functional>
@@ -30,7 +31,8 @@ class ITask : public IClass {
 
 class TaskFactory
 {
-
+    private:
+        Kamsi* sharedKamsi;
     private:
         typedef std::function<ITask*(std::any)> CreateCallback;
         typedef std::map<TaskType, CreateCallback> CreateTaskMap;

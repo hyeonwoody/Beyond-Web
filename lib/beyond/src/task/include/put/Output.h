@@ -11,6 +11,7 @@ private:
     OutputTask(TaskType taskType, std::string& url, MediaType mediaType) 
         : IPut("OutputTask",taskType, url, mediaType) {}
 public:
+    ~OutputTask();
     static ITask* Create(Kamsi* kamsi, const std::string& url);
     std::ofstream* GetStream();
     void execute() override; 

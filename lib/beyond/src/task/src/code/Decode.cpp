@@ -23,12 +23,17 @@ ICode* DecodeTask::Create(Kamsi* kamsi, const std::string& url) {
         return nullptr;
     }
     decode->kamsi = kamsi;
+    decode->kamsi->Register();
     return decode;
 }
 
 DecodeTask::~DecodeTask() {
     avformat_close_input(&formatContext);
-    delete kamsi;
+    if (kamsi) {
+        kamsi->UnRegister();
+        kamsi = nullptr;
+    }
+    
 }
 
 /**

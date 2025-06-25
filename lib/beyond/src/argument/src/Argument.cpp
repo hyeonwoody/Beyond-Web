@@ -5,6 +5,7 @@ ArgumentMapper* ArgumentMapper::Create() {
     arg->initOptions();
     arg->initFlags();
     arg->kamsi = Kamsi::Create("Init");
+    arg->kamsi->Register();
     return arg;
 }
 
@@ -53,7 +54,10 @@ ArgumentMapper::~ArgumentMapper()
     }
     delete[] flags;
 
-    delete kamsi;
+    if (kamsi) {
+        kamsi->UnRegister();
+        kamsi = nullptr;
+    }
 }
 
 int ArgumentMapper::Parse(int argc, char** argv) {

@@ -37,12 +37,16 @@ Beyond* Beyond::Create(ArgumentMapper* argument) {
     delete pJobFactory;
     beyond->jobs = pJobs;
     beyond->kamsi = kamsi;
+    beyond->kamsi->Register();
     return beyond;
 }
 
 Beyond::~Beyond() {
     delete jobs;
-    delete kamsi;
+    if (kamsi) {
+        kamsi->UnRegister();
+        kamsi = nullptr;
+    }
 }
 
 int Beyond::SortJob() {

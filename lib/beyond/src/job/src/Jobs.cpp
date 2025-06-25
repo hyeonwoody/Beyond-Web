@@ -4,6 +4,7 @@
 Jobs* Jobs::Create() {
     Jobs* jobs = new Jobs();
     jobs->kamsi = Kamsi::Create("Init");
+    jobs->kamsi->Register();
     return jobs;
 }
 
@@ -11,7 +12,10 @@ Jobs::~Jobs() {
     for (IJob* job : jobs) {
         delete job;
     }
-    delete kamsi;
+    if (kamsi) {
+        kamsi->UnRegister();
+        kamsi = nullptr;
+    }
 }
 
 void Jobs::Add(IJob* job) {

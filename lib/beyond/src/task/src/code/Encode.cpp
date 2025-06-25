@@ -23,6 +23,7 @@ ICode* EncodeTask::Create(Kamsi* kamsi, const std::string& url) {
         return nullptr;
     }
     encode->kamsi = kamsi;
+    encode->kamsi->Register();
     return encode;
 }
 
@@ -30,7 +31,10 @@ EncodeTask::~EncodeTask() {
     if (formatContext && !(formatContext->flags & AVFMT_NOFILE))
         avio_closep (&formatContext->pb);
     avformat_free_context (formatContext);
-    delete kamsi;
+    if (kamsi) {
+        kamsi->UnRegister();
+        kamsi = nullptr;
+    }
 }
 
 /**

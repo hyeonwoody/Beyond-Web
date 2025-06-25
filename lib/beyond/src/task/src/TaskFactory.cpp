@@ -4,25 +4,32 @@
 #include "FileBridge.h"
 #include "Decode.h"
 #include "Encode.h"
+#include "Mux.h"
 
 TaskFactory* TaskFactory::Create() {
     TaskFactory* factory = new TaskFactory();
-    Kamsi* kamsi = Kamsi::Create("Init");
+    Kamsi* rawKamsi = Kamsi::Create("Init");
+    rawKamsi->Register();
+    factory->sharedKamsi = rawKamsi;
+    Kamsi* sharedKamsi = rawKamsi; // local variable for lamda capture.
     factory->add(TaskType::INPUT, [](std::any arg) -> ITask* {
         return InputTask::Create(std::any_cast<std::string>(arg));
     });
 
-    factory->add(TaskType::OUTPUT, [kamsi](std::any arg) -> ITask* {
-        return OutputTask::Create(kamsi, std::any_cast<std::string>(arg));
+    factory->add(TaskType::OUTPUT, [sharedKamsi](std::any arg) -> ITask* {
+        return OutputTask::Create(sharedKamsi, std::any_cast<std::string>(arg));
     });
     factory->add(TaskType::FILEBRIDGE, [](std::any) -> ITask* {
         return FileBridgeTask::Create();
     });
-    factory->add(TaskType::DECODE, [kamsi](std::any arg) -> ITask* {
-        return DecodeTask::Create(kamsi, std::any_cast<std::string>(arg));
+    factory->add(TaskType::DECODE, [sharedKamsi](std::any arg) -> ITask* {
+        return DecodeTask::Create(sharedKamsi, std::any_cast<std::string>(arg));
     });
-    factory->add(TaskType::ENCODE, [kamsi](std::any arg) -> ITask* {
-        return EncodeTask::Create(kamsi, std::any_cast<std::string>(arg));
+    factory->add(TaskType::ENCODE, [sharedKamsi](std::any arg) -> ITask* {
+        return EncodeTask::Create(sharedKamsi, std::any_cast<std::string>(arg));
+    });
+    factory->add(TaskType::MUX, [sharedKamsi](std::any arg) -> ITask* {
+        return MuxTask::Create(sharedKamsi);
     });
     return factory;
 }
@@ -34,6 +41,11 @@ TaskFactory::~TaskFactory()
     this->remove(TaskType::FILEBRIDGE);
     this->remove(TaskType::DECODE);
     this->remove(TaskType::ENCODE);
+    this->remove(TaskType::MUX);
+    if (sharedKamsi) {
+        sharedKamsi->UnRegister();
+        sharedKamsi = nullptr;
+    }
 }
 
 void TaskFactory::add(const TaskType type, CreateCallback cb) {

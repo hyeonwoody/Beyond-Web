@@ -5,9 +5,13 @@ ITask* OutputTask::Create(Kamsi* kamsi, const std::string& output){
     auto [type, parsedUrl] = parseMediaType(output);
     OutputTask* task = new OutputTask(TaskType::OUTPUT, parsedUrl, type);
     task->kamsi = kamsi;
+    task->kamsi->Register();
     return task;
 };
 
+OutputTask::~OutputTask() {
+    kamsi->UnRegister();
+}
 
 void OutputTask::execute() {
     
