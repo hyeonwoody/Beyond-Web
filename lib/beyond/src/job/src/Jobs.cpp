@@ -3,7 +3,7 @@
 
 Jobs* Jobs::Create() {
     Jobs* jobs = new Jobs();
-    jobs->kamsi = Kamsi::Create("Jobs", "Init");
+    jobs->kamsi = Kamsi::Create("Init");
     return jobs;
 }
 
@@ -48,7 +48,7 @@ int Jobs::Start() {
         } else {
             char buf[64];
             std::snprintf(buf, sizeof(buf), "Failed to create thread for job : %s", JobTypeToString(job->GetType()));
-            kamsi->Error("Start", buf);
+            kamsi->Error(getClassName(), "Start", buf);
         }
     }
 

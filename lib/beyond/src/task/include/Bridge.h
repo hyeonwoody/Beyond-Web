@@ -2,8 +2,8 @@
 #include "Task.h"
 class IBridge : public ITask {
     protected:
-        IBridge(TaskType taskType)
-        : ITask(taskType){}
+        IBridge(const std::string& className, TaskType taskType)
+        : ITask(className, taskType){}
     public:
         virtual ~IBridge() = default;
         

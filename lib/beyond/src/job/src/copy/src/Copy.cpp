@@ -7,7 +7,7 @@ IJob* CopyJob::Create() {
     CopyJob* job = new CopyJob();
     job->type = JobType::COPY;
     job->tasks = Tasks::Create();
-    job->kamsi = Kamsi::Create("CopyJob", "Init");
+    job->kamsi = Kamsi::Create("Init");
     return job;
 }
 

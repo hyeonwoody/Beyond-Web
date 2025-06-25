@@ -16,8 +16,8 @@ protected:
     MediaType mediaType;
 
 public:
-    IPut(TaskType taskType, const std::string& url, MediaType mediaType)
-        : ITask(taskType), url(url), mediaType(mediaType) {}
+    IPut(const std::string& className, TaskType taskType, const std::string& url, MediaType mediaType)
+        : ITask(className, taskType), url(url), mediaType(mediaType) {}
     virtual const std::string& GetUrl() {return url;}
     virtual MediaType GetMediaType() {return mediaType;}
     virtual const std::string GetPath() {return fs::path(url).parent_path().string();}

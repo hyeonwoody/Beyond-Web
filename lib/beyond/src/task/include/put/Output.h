@@ -9,7 +9,7 @@ private:
     Kamsi* kamsi;
 private:
     OutputTask(TaskType taskType, std::string& url, MediaType mediaType) 
-        : IPut(taskType, url, mediaType) {}
+        : IPut("OutputTask",taskType, url, mediaType) {}
 public:
     static ITask* Create(const std::string& url);
     std::ofstream* GetStream();

@@ -1,14 +1,10 @@
 #include "Argument.h"
 
-
-
-ArgumentMapper::ArgumentMapper() {}
-
 ArgumentMapper* ArgumentMapper::Create() {
     ArgumentMapper* arg = new ArgumentMapper();
     arg->initOptions();
     arg->initFlags();
-    arg->kamsi = Kamsi::Create("ArgumentMapper", "Init");
+    arg->kamsi = Kamsi::Create("Init");
     return arg;
 }
 
@@ -69,20 +65,20 @@ int ArgumentMapper::Parse(int argc, char** argv) {
         args.push_back(std::string(argv[i]));    
     }
 
-    kamsi->Debug("Parse", "argc" + argc);
+    kamsi->Debug(getClassName(), "Parse", "argc" + argc);
     
     for (int i=0; i < args.size(); ++i) {
         if (argv[i] == nullptr) {
             char buf[128];
             std::sprintf(buf, "Parse error: argv[%d] is nullptr", i);
-            kamsi->Debug("Parse", buf);
+            kamsi->Debug(getClassName(), "Parse", buf);
             return false;
         }
         std::string& arg = args[i];
         if (parseFlags(arg)) {
             char buf[128];
             std::sprintf(buf, "parsed : %s", arg.c_str());
-            kamsi->Debug("Parse", buf);
+            kamsi->Debug(getClassName(), "Parse", buf);
             continue;
         }
         std::string& val = args[i+1];

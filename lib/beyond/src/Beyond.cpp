@@ -5,7 +5,7 @@
 
 Beyond* Beyond::Create(ArgumentMapper* argument) {
     Beyond* beyond = new Beyond();
-    Kamsi* kamsi = Kamsi::Create("Beyond", "Init");
+    Kamsi* kamsi = Kamsi::Create("Init");
     
 
     CFlag** pFlag = argument->GetFlags();
@@ -16,10 +16,10 @@ Beyond* Beyond::Create(ArgumentMapper* argument) {
     for (int i = 0; i < FLAG_NUM; ++i) {
         if (pFlag[i]->used) {
             
-            kamsi->Debug("Create", "argc : " + pFlag[i]->shortName);
+            kamsi->Debug(beyond->getClassName(), "Create", "argc : " + pFlag[i]->shortName);
             IJob* pJob = pJobFactory->CreateJob(pFlag[i]);
             if (pJob == nullptr) {
-                kamsi->Warning("Create", "Corresponding job not found. Skipping current job and moving to the next one.");
+                kamsi->Warning(beyond->getClassName(), "Create", "Corresponding job not found. Skipping current job and moving to the next one.");
                 continue;
             }
                 
@@ -31,7 +31,7 @@ Beyond* Beyond::Create(ArgumentMapper* argument) {
     COption** pOption = argument->GetOptions();
     for (int i = 0; i <OPTION_NUM; ++i) {
         if (pOption[i]->used) {
-            kamsi->Debug("Create", "argc : " + pOption[i]->shortName);
+            kamsi->Debug(beyond->getClassName(), "Create", "argc : " + pOption[i]->shortName);
         }
     }
     delete pJobFactory;

@@ -6,12 +6,16 @@
 #include <mutex>
 
 
-class Jobs {
+class Jobs : public IClass {
     private:
         std::vector<IJob*> jobs;
         std::mutex jobMutex;
 
         Kamsi* kamsi;
+    private:
+        Jobs()
+        : IClass("Jobs") {}
+
     private:
         struct ExecutorParam {
             Jobs* jobs;

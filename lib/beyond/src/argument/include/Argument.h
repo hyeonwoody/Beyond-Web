@@ -1,6 +1,7 @@
 #pragma once
 #include "StringParser.h"
 #include "Kamsi.h"
+#include "Class.h"
 #include <string>
 #include <cstring>
 #include <vector>
@@ -111,15 +112,17 @@ class CFlag : public BaseArgument<CFlag> {
 
 
 
-class ArgumentMapper
-{
+class ArgumentMapper : public IClass {
 private:
     SOptionVariables optionVariables;
     SFlagVariables flagVariables;
     COption** options;
     CFlag** flags;
     Kamsi* kamsi;
-
+private:
+    ArgumentMapper()
+    : IClass("ArgumentMapper") {};
+private:
     public:
         static ArgumentMapper* Create(); 
         ~ArgumentMapper();
@@ -129,7 +132,6 @@ private:
         const SOptionVariables* GetOptionVariables();
         const SFlagVariables* GetFlagVariables();
     private:
-        ArgumentMapper();
         void initOptions();
         void initFlags();
         bool parseOptions(std::string arg, std::string val);

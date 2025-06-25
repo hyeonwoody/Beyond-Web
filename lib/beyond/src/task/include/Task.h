@@ -1,4 +1,5 @@
 #pragma once
+#include "Class.h"
 #include <map>
 #include <string>
 #include <functional>
@@ -11,11 +12,12 @@ enum class TaskType {
     FILEBRIDGE,
 };
 
-class ITask {
+class ITask : public IClass {
     protected:
-        TaskType type;
-        ITask(TaskType type) : type(type) {}
-
+    TaskType type;
+    protected:
+        ITask(const std::string& className, TaskType type)
+            : IClass(className), type(type) {}
     public:
         virtual ~ITask() {};
         virtual void execute() = 0;

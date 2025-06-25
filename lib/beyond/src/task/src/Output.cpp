@@ -4,7 +4,7 @@
 ITask* OutputTask::Create(const std::string& output){
     auto [type, parsedUrl] = parseMediaType(output);
     OutputTask* task = new OutputTask(TaskType::OUTPUT, parsedUrl, type);
-    task->kamsi = Kamsi::Create("OutputTask", "Init");
+    task->kamsi = Kamsi::Create("Init");
     return task;
 };
 
@@ -22,8 +22,8 @@ void OutputTask::CreateDirectory() {
     if (!url.empty() && !fs::exists(path)) {
         std::error_code ec;
         if (!fs::create_directories(path, ec)) {
-            kamsi->Error("createDirectory", "Failed to create output directory");
-            kamsi->Error("createDirectory", "Reason : " + ec.message());
+            kamsi->Error(getClassName(), "createDirectory", "Failed to create output directory");
+            kamsi->Error(getClassName(), "createDirectory", "Reason : " + ec.message());
             return;
         }
     }

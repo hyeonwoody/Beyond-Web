@@ -7,7 +7,7 @@ IJob* SymbolicLinkJob::Create() {
     SymbolicLinkJob* job = new SymbolicLinkJob();
     job->type = JobType::SYMBOLICLINK;
     job->tasks = Tasks::Create();
-    job->kamsi = Kamsi::Create("SymbolicLinkJob", "Init");
+    job->kamsi = Kamsi::Create("Init");
     return job;
 }
 
@@ -21,21 +21,21 @@ void SymbolicLinkJob::SetVariables(const SOptionVariables* options, const SFlagV
 
     auto createTaskFunc = factory->GetCreate(TaskType::INPUT);
     if (!createTaskFunc) {
-        kamsi->Error("SetVariables", "Failed to get INPUT task creator");
+        kamsi->Error(getClassName(), "SetVariables", "Failed to get INPUT task creator");
         return;
     }
     tasks->Add(createTaskFunc(std::any(std::string(options->inputUrl))));
 
     createTaskFunc = factory->GetCreate(TaskType::OUTPUT);
     if (!createTaskFunc) {
-        kamsi->Error("SetVariables", "Failed to get OUTPUT task creator");
+        kamsi->Error(getClassName(), "SetVariables", "Failed to get OUTPUT task creator");
         return;
     }
     tasks->Add(createTaskFunc(std::any(std::string(options->outputUrl))));
 
     createTaskFunc = factory->GetCreate(TaskType::FILEBRIDGE);
     if (!createTaskFunc) {
-        kamsi->Error("SetVariables", "Failed to get FILEBRIDGE task creator");
+        kamsi->Error(getClassName(), "SetVariables", "Failed to get FILEBRIDGE task creator");
         return;
     }
     tasks->Add(createTaskFunc(std::any{}));
@@ -66,7 +66,7 @@ void SymbolicLinkJob::Execute() {
     getFileBridgeTask()->Symlink(input, output);
     char buf[64];
     std::snprintf(buf, sizeof(buf), "Created symbolic link from %s to %s", input, output);
-    kamsi->Info("CreateJob", buf);
+    kamsi->Info(getClassName(),"CreateJob", buf);
 }
 
 

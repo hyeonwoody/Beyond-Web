@@ -1,4 +1,5 @@
 #pragma once
+#include "Class.h"
 #include "Argument.h"
 #include "Tasks.h"
 #include "Kamsi.h"
@@ -27,10 +28,13 @@ inline const char* JobTypeToString(JobType type) {
 }
 
 
-class IJob {
+class IJob : public IClass {
     protected:
         JobType type;
         Tasks* tasks;
+    protected:
+        IJob(const std::string& className) 
+            :IClass(className) {}
     public:
         pthread_t thread;
     public:
@@ -42,14 +46,16 @@ class IJob {
         }
 };
 
-class JobFactory
-{
+class JobFactory : public IClass {
 
     private:
         typedef IJob* (*CreateCallback)();
         typedef std::map<JobType, CreateCallback> CreateJobMap;
         CreateJobMap createJobMap;
         Kamsi* kamsi;
+    private:
+        JobFactory()
+            : IClass("JobFactory") {};
     public:
         static JobFactory* Create();
         ~JobFactory();

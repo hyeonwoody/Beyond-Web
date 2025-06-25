@@ -10,7 +10,7 @@ namespace fs = std::filesystem;
 class FileBridgeTask : public IBridge {
     private:
     FileBridgeTask(TaskType taskType) 
-    : IBridge(taskType) {}
+    : IBridge("FileBridgeTask",taskType) {}
     public:
         static FileBridgeTask* Create();
         void Transfer(std::ifstream& ifstream, std::ofstream& ofstream);

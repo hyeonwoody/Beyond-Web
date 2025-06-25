@@ -7,7 +7,7 @@ class InputTask : public IPut {
 private:
     private:
     InputTask(TaskType taskType, const std::string& url, MediaType mediaType) 
-            : IPut(taskType, url, mediaType) {}
+            : IPut("InputTask",taskType, url, mediaType) {}
 
 public:
     static ITask* Create(const std::string& input);

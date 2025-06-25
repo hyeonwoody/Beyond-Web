@@ -9,6 +9,9 @@
 class SymbolicLinkJob : public IJob {
     private:
         Kamsi* kamsi;
+    private:
+        SymbolicLinkJob()
+            :IJob("SymbolicLinkJob") {}
     public:
         static IJob* Create();
         ~SymbolicLinkJob();

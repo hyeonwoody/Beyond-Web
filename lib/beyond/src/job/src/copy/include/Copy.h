@@ -8,6 +8,9 @@
 class CopyJob : public IJob {
     private:
         Kamsi* kamsi;
+    private:
+        CopyJob()
+            : IJob("CopyJob") {};
     public:
         static IJob* Create();
         ~CopyJob();
