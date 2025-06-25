@@ -11,8 +11,8 @@
 struct SOptionVariables{
 std::string inputUrl;
     std::string outputUrl;
-    std::string startOffset;
-    std::string endOffset;
+    uint64_t startOffset;
+    uint64_t endOffset;
     int loop;
 };
 
@@ -23,7 +23,7 @@ struct SFlagVariables {
     bool cut;
 };
 
-enum class ArgType { INT, STRING, NONE };
+enum class ArgType { UINT64, STRING, NONE };
 
 template <typename T>
 class BaseArgument {
@@ -40,7 +40,7 @@ public:
     virtual ~BaseArgument() {
         if (!used && ptr) {
             switch (type) {
-                case ArgType::INT:
+                case ArgType::UINT64:
                     delete static_cast<int*>(ptr);
                     break;
                 case ArgType::STRING:
@@ -92,8 +92,8 @@ public:
     void Assign (std::string arg) {
         
         if (StringParser::IsNumber(arg)) {
-            *((int*)ptr) = std::stoi(arg);
-            type = ArgType::INT;
+            *((uint64_t*)ptr) = std::stoi(arg);
+            type = ArgType::UINT64;
             return;
         }
         *((std::string*)ptr) = arg;
