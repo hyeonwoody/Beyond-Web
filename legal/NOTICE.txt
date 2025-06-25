@@ -1,0 +1,25 @@
+
+This application uses the FFmpeg libraries under the LGPLv2.1 license (depending on your build).
+- The FFmpeg libraries are dynamically linked (not statically compiled).
+- OpenSSL was enabled in the build. OpenSSL is licensed under the OpenSSL License, which is not GPL-compatible, but is typically acceptable when used with LGPL builds via dynamic linking.
+- The FFmpeg source code and license details are available at: https://ffmpeg.org
+
+The FFmpeg source code and license details are available at:
+https://ffmpeg.org
+
+Your Rights Under the LGPL:
+- You have the right to:
+    - Replace the FFmpeg libraries with a modified version, as they are dynamically linked.
+    - Access and modify the FFmpeg source code under the terms of the LGPL license.
+
+Build Configuration:
+FFmpeg build was configured with the following flags:
+```
+    --prefix=/usr/local
+    --disable-static
+    --enable-shared
+    --disable-openssl
+    --enable-gnutls
+    --disable-gpl
+    --enable-nonfree
+```
