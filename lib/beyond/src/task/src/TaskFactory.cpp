@@ -2,15 +2,17 @@
 #include "Input.h"
 #include "Output.h"
 #include "FileBridge.h"
+#include "Decode.h"
 
 TaskFactory* TaskFactory::Create() {
     TaskFactory* factory = new TaskFactory();
+    Kamsi* kamsi = Kamsi::Create("Init");
     factory->add(TaskType::INPUT, [](std::any arg) -> ITask* {
         return InputTask::Create(std::any_cast<std::string>(arg));
     });
 
-    factory->add(TaskType::OUTPUT, [](std::any arg) -> ITask* {
-        return OutputTask::Create(std::any_cast<std::string>(arg));
+    factory->add(TaskType::OUTPUT, [kamsi](std::any arg) -> ITask* {
+        return OutputTask::Create(kamsi, std::any_cast<std::string>(arg));
     });
     factory->add(TaskType::FILEBRIDGE, [](std::any) -> ITask* {
         return FileBridgeTask::Create();

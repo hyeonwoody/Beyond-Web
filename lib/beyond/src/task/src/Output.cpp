@@ -1,10 +1,10 @@
 #include "Output.h"
 
 
-ITask* OutputTask::Create(const std::string& output){
+ITask* OutputTask::Create(Kamsi* kamsi, const std::string& output){
     auto [type, parsedUrl] = parseMediaType(output);
     OutputTask* task = new OutputTask(TaskType::OUTPUT, parsedUrl, type);
-    task->kamsi = Kamsi::Create("Init");
+    task->kamsi = kamsi;
     return task;
 };
 
