@@ -12,7 +12,7 @@ class CopyJob : public IJob {
         CopyJob()
             : IJob("CopyJob") {};
     public:
-        static IJob* Create();
+        static IJob* Create(Kamsi* kamsi);
         ~CopyJob();
         void Execute() override;
         

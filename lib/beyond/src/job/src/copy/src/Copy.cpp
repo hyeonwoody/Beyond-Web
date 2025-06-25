@@ -3,11 +3,11 @@
 
 
 
-IJob* CopyJob::Create() {
+IJob* CopyJob::Create(Kamsi* kamsi) {
     CopyJob* job = new CopyJob();
     job->type = JobType::COPY;
     job->tasks = Tasks::Create();
-    job->kamsi = Kamsi::Create("Init");
+    job->kamsi = kamsi;
     return job;
 }
 

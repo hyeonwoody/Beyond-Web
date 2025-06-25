@@ -3,11 +3,11 @@
 
 
 
-IJob* SymbolicLinkJob::Create() {
+IJob* SymbolicLinkJob::Create(Kamsi* kamsi) {
     SymbolicLinkJob* job = new SymbolicLinkJob();
     job->type = JobType::SYMBOLICLINK;
     job->tasks = Tasks::Create();
-    job->kamsi = Kamsi::Create("Init");
+    job->kamsi = kamsi;
     return job;
 }
 
@@ -64,7 +64,7 @@ void SymbolicLinkJob::Execute() {
     getOutputTask()->CreateDirectory();
 
     getFileBridgeTask()->Symlink(input, output);
-    char buf[64];
+    char buf[33 + input.length() + output.length()];
     std::snprintf(buf, sizeof(buf), "Created symbolic link from %s to %s", input, output);
     kamsi->Info(getClassName(),"CreateJob", buf);
 }

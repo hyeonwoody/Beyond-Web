@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <map>
 #include <vector>
+#include <functional>
+#include <any>
 
 enum class JobType {
     UNKNOWN,
@@ -49,7 +51,7 @@ class IJob : public IClass {
 class JobFactory : public IClass {
 
     private:
-        typedef IJob* (*CreateCallback)();
+        typedef std::function<IJob*()> CreateCallback;
         typedef std::map<JobType, CreateCallback> CreateJobMap;
         CreateJobMap createJobMap;
         Kamsi* kamsi;

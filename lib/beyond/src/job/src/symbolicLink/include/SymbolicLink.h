@@ -13,7 +13,7 @@ class SymbolicLinkJob : public IJob {
         SymbolicLinkJob()
             :IJob("SymbolicLinkJob") {}
     public:
-        static IJob* Create();
+        static IJob* Create(Kamsi* kamsi);
         ~SymbolicLinkJob();
         void Execute() override;
         

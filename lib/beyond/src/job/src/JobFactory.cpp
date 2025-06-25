@@ -15,15 +15,22 @@
 JobFactory* JobFactory::Create() {
     JobFactory* factory = new JobFactory();
     factory->kamsi = Kamsi::Create("Init");
-#ifdef ENABLE_COPY
-    factory->add(JobType::COPY, &CopyJob::Create);
-#endif
+    Kamsi* jobKamsi = Kamsi::Create("Init");
 
+#ifdef ENABLE_COPY
+    factory->add(JobType::COPY, [jobKamsi]() -> IJob* {
+        return CopyJob::Create(jobKamsi);
+    });
+#endif
 #ifdef ENABLE_MOVE
-    factory->add(JobType::MOVE, &MoveJob::Create);
+    factory->add(JobType::MOVE, []() -> IJob* {
+        return MoveJob::Create();
+    });
 #endif
 #ifdef ENABLE_SYMBOLICLINK
-    factory->add(JobType::SYMBOLICLINK, &SymbolicLinkJob::Create);
+    factory->add(JobType::SYMBOLICLINK, [jobKamsi]() -> IJob* {
+        return SymbolicLinkJob::Create(jobKamsi);
+    });
 #endif
     return factory;
 }
@@ -50,7 +57,6 @@ void JobFactory::remove(JobType type) {
 }
 
 IJob* JobFactory::CreateJob(CFlag* flag) {
-
     JobType type = getJobType(flag->index);
     if (type == JobType::UNKNOWN) {
         return nullptr;
