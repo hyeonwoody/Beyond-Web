@@ -19,6 +19,7 @@ ICode* DecodeTask::Create(Kamsi* kamsi, const std::string& url) {
         char errBuf[128];
         av_strerror(ret, errBuf, sizeof(errBuf));
         kamsi->Error(decode->getClassName(), "Init", "Could not open input source " + url + ".");
+        delete decode;
         return nullptr;
     }
     decode->kamsi = kamsi;
