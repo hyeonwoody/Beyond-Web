@@ -18,6 +18,6 @@ class CopyJob : public IJob {
         InputTask* getInputTask();
         OutputTask* getOutputTask();
         FileBridgeTask* getFileBridgeTask();
-    private:
-        void createDirectory(const std::string& path);
+
+        
 };

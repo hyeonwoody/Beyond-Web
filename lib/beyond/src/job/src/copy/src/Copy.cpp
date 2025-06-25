@@ -74,20 +74,9 @@ void CopyJob::Execute() {
         delete ofstream;
         return;
     }
-    createDirectory(getOutputTask()->GetPath());
+    getOutputTask()->CreateDirectory();
     getFileBridgeTask()->Transfer(*ifstream, *ofstream);
     std::cout << "🔊[CopyJob::Execute] Copied from " << input << " to " << output << "\n";
     delete ifstream;
     delete ofstream;
-}
-
-void CopyJob::createDirectory(const std::string& path) {
-    if (!path.empty() && !fs::exists(path)) {
-        std::error_code ec;
-        if (!fs::create_directories(path, ec)) {
-            std::cerr << "⛔[CopyJob::createDirectory] Failed to create output directory: " << path << "\n";
-            std::cerr << "Reason: " << ec.message() << "\n";
-            return;
-        }
-    }
 }

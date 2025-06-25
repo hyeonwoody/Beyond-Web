@@ -60,8 +60,8 @@ void SymbolicLinkJob::Execute() {
 
     const std::string& input = getInputTask()->GetUrl();
     const std::string& output = getOutputTask()->GetUrl();
-
-    createDirectory(getOutputTask()->GetPath());
+   
+    getOutputTask()->CreateDirectory();
 
     getFileBridgeTask()->Symlink(input, output);
     char buf[64];
@@ -69,13 +69,4 @@ void SymbolicLinkJob::Execute() {
     kamsi->Info("CreateJob", buf);
 }
 
-void SymbolicLinkJob::createDirectory(const std::string& path) {
-    if (!path.empty() && !fs::exists(path)) {
-        std::error_code ec;
-        if (!fs::create_directories(path, ec)) {
-            std::cerr << "⛔[SymbolicLinkJob::createDirectory] Failed to create output directory: " << path << "\n";
-            std::cerr << "Reason: " << ec.message() << "\n";
-            return;
-        }
-    }
-}
+
