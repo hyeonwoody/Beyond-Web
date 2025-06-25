@@ -18,7 +18,7 @@ void ArgumentMapper::initOptions() {
     this->options[optionIdx++] = COption::Create("-l,--loop", "-1: Infinite loop, 0: run once, positive numbers: Number of times to loop/retry", &optionVariables.loop, optionIdx, true);
     this->options[optionIdx++] = COption::Create("-o,--outputUrl", "Output URL including protocol", &optionVariables.outputUrl, optionIdx, true);
     this->options[optionIdx++] = COption::Create("-ss,--startOffset", "Start offset in second or hh:mm:ss for cut flag (-c)", &optionVariables.startOffset, optionIdx);
-    this->options[optionIdx++] = COption::Create("-to,--endOffset", "End offset in second or hh:mm:ss for cut flag (-c)", &optionVariables.startOffset, optionIdx);
+    this->options[optionIdx++] = COption::Create("-to,--endOffset", "End offset in second or hh:mm:ss for cut flag (-c)", &optionVariables.endOffset, optionIdx);
     this->options[optionIdx++] = COption::Create("-d,--duration", "Duration, used for cut flag (-c)", &optionVariables.outputUrl, optionIdx);
 }
 
