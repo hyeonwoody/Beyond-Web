@@ -17,6 +17,9 @@ TaskFactory* TaskFactory::Create() {
     factory->add(TaskType::FILEBRIDGE, [](std::any) -> ITask* {
         return FileBridgeTask::Create();
     });
+    factory->add(TaskType::DECODE, [kamsi](std::any arg) -> ITask* {
+        return DecodeTask::Create(kamsi, std::any_cast<std::string>(arg));
+    });
     return factory;
 }
 
@@ -25,6 +28,7 @@ TaskFactory::~TaskFactory()
     this->remove(TaskType::INPUT);
     this->remove(TaskType::OUTPUT);
     this->remove(TaskType::FILEBRIDGE);
+    this->remove(TaskType::DECODE);
 }
 
 void TaskFactory::add(const TaskType type, CreateCallback cb) {
