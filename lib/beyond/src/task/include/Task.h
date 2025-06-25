@@ -11,6 +11,7 @@ enum class TaskType {
     OUTPUT,
     FILEBRIDGE,
     DECODE,
+    ENCODE,
 };
 
 class ITask : public IClass {

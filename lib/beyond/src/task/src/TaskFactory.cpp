@@ -3,6 +3,7 @@
 #include "Output.h"
 #include "FileBridge.h"
 #include "Decode.h"
+#include "Encode.h"
 
 TaskFactory* TaskFactory::Create() {
     TaskFactory* factory = new TaskFactory();
@@ -20,6 +21,9 @@ TaskFactory* TaskFactory::Create() {
     factory->add(TaskType::DECODE, [kamsi](std::any arg) -> ITask* {
         return DecodeTask::Create(kamsi, std::any_cast<std::string>(arg));
     });
+    factory->add(TaskType::ENCODE, [kamsi](std::any arg) -> ITask* {
+        return EncodeTask::Create(kamsi, std::any_cast<std::string>(arg));
+    });
     return factory;
 }
 
@@ -29,6 +33,7 @@ TaskFactory::~TaskFactory()
     this->remove(TaskType::OUTPUT);
     this->remove(TaskType::FILEBRIDGE);
     this->remove(TaskType::DECODE);
+    this->remove(TaskType::ENCODE);
 }
 
 void TaskFactory::add(const TaskType type, CreateCallback cb) {

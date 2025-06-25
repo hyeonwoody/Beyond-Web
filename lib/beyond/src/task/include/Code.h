@@ -48,5 +48,27 @@ public:
         std::lock_guard<std::mutex> lock(self->logMutex);
         self->logOutput << buffer;
     }
+
+    AVFormatContext* GetFormatCtx() {
+        return formatContext;
+    }
+
     virtual int GetStreamInfo() = 0;
+    unsigned int GetStreamCount() {
+        return formatContext->nb_streams;
+    }
+    AVStream* GetStreamAt(size_t index) {
+        return formatContext->streams[index];
+    }
+    AVStream* CreateStream(const AVCodec *codec) {
+        return avformat_new_stream(formatContext, codec);
+    }
+
+    AVCodecParameters* GetCodecAt(size_t index) {
+        return formatContext->streams[index]->codecpar;
+    }
+
+    void SetCodecAt(size_t index, AVCodecParameters* codecParams) {
+        avcodec_parameters_copy(formatContext->streams[index]->codecpar, codecParams);
+    }
 };
