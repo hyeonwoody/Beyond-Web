@@ -19,6 +19,14 @@ void FileBridgeTask::Symlink(const std::string& input, const std::string& output
     }
 }
 
+StreamMemory* FileBridgeTask::MallocArray(size_t cnt) {
+    return static_cast<StreamMemory*>(av_malloc_array(cnt, sizeof(StreamMemory)));
+}
+
+void FileBridgeTask::FreeArray(StreamMemory* memory) {
+    av_free(memory);
+}
+
 void FileBridgeTask::execute() {
     return;
 }
