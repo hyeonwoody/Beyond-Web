@@ -38,10 +38,10 @@ void DeMuxTask::execute() {
  */
 int DeMuxTask::ReadFrame(AVFormatContext* ifc, AVPacket* pkt) {
     int ret = 0;
-    if ((ret = av_read_frame(ifc, pkt) < 0)) {
+    if ((ret = av_read_frame(ifc, pkt)) < 0) {
         char errBuf[128];
-        av_strerror(ret, errBuf, sizeof(errBuf));
         kamsi->Error(getClassName(), "ReadFrame", std::string("Failed to demux packet: ") + errBuf);
+        av_strerror(ret, errBuf, sizeof(errBuf));
     }
     return ret;
 }
