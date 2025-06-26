@@ -15,11 +15,13 @@ enum class CodeType {
 
 class ICode : public ITask {
 protected:
+    Kamsi* kamsi;
+protected:
     std::string url;
     std::mutex logMutex;
     std::ostringstream logOutput;
     ICode(const std::string& className, TaskType taskType)
-        : ITask(className, taskType) {};
+        : ITask(className, taskType) {}
 public:
 
     AVFormatContext* formatContext = nullptr;

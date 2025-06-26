@@ -4,10 +4,8 @@
 
 class DecodeTask : public ICode {
 private:
-    Kamsi* kamsi;
-private:
     DecodeTask(TaskType taskType) 
-    : ICode("DecodeTask", taskType), kamsi(nullptr) {};
+    : ICode("DecodeTask", taskType) {};
 public:
     static ICode* Create(Kamsi* kamsi, const std::string& url);
     virtual ~DecodeTask();

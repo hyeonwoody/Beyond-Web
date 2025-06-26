@@ -4,10 +4,8 @@
 
 class EncodeTask : public ICode {
 private:
-    Kamsi* kamsi;
-private:
     EncodeTask(TaskType taskType) 
-    : ICode("EncodeTask", taskType), kamsi(nullptr) {};
+    : ICode("EncodeTask", taskType) {};
 public:
     static ICode* Create(Kamsi* kamsi, const std::string& url);
     virtual ~EncodeTask();
