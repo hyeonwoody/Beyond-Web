@@ -5,7 +5,7 @@
 IJob* MoveJob::Create() {
     MoveJob* job = new MoveJob();
     job->type = JobType::MOVE;
-    job->copyJob = CopyJob::Create(); // Explitcitly show it uses nested copyJob
+    job->copyJob = CopyJob::Create(nullptr); // Explitcitly show it uses nested copyJob
     job->tasks = Tasks::Create();
 
     return job;

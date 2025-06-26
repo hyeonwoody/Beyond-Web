@@ -35,8 +35,8 @@ class IJob : public IClass {
         JobType type;
         Tasks* tasks;
     protected:
-        IJob(const std::string& className) 
-            :IClass(className) {}
+        IJob(const std::string& className)
+        : IClass(className) {}
     public:
         pthread_t thread;
     public:

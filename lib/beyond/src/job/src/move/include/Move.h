@@ -7,6 +7,9 @@
 class MoveJob : public IJob {
     private:
         IJob* copyJob;
+    private:
+        MoveJob() 
+            :IJob("MoveJob") {};
     public:
         static IJob* Create();
         ~MoveJob();
