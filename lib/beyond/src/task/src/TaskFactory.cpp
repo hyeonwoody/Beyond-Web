@@ -6,6 +6,7 @@
 #include "Encode.h"
 #include "DeMux.h"
 #include "Mux.h"
+#include "Packet.h"
 
 TaskFactory* TaskFactory::Create() {
     TaskFactory* factory = new TaskFactory();
@@ -35,6 +36,9 @@ TaskFactory* TaskFactory::Create() {
     factory->add(TaskType::DEMUX, [sharedKamsi](std::any arg) -> ITask* {
         return DeMuxTask::Create(sharedKamsi);
     });
+    factory->add(TaskType::PACKET, [sharedKamsi](std::any arg) -> ITask* {
+        return PacketTask::Create(sharedKamsi);
+    });
     return factory;
 }
 
@@ -47,6 +51,7 @@ TaskFactory::~TaskFactory()
     this->remove(TaskType::ENCODE);
     this->remove(TaskType::DEMUX);
     this->remove(TaskType::MUX);
+    this->remove(TaskType::PACKET);
     if (sharedKamsi) {
         sharedKamsi->UnRegister();
         sharedKamsi = nullptr;

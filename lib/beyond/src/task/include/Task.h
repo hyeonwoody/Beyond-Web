@@ -15,6 +15,7 @@ enum class TaskType {
     ENCODE,
     DEMUX,
     MUX,
+    PACKET,
 };
 
 class ITask : public IClass {
