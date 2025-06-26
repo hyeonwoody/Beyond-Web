@@ -85,5 +85,4 @@
 >CMake
 
 ## 📖: Libraries Used
->FFmpeg 4.4.4 (n4.4.4-89-g25841e4f90)  
->MariaDB
+>FFmpeg (N-120025-gf67ca10f2e)  
