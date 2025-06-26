@@ -10,6 +10,11 @@ ITask* PacketTask::Create(Kamsi *kamsi) {
 
 PacketTask::~PacketTask() {
     kamsi->UnRegister();
+    kamsi = nullptr;
+    if (packet) {
+        Free();
+    }
+    packet = nullptr;
 }
 
 void PacketTask::execute() {
