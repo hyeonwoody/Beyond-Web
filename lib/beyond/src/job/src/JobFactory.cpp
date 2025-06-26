@@ -11,6 +11,9 @@
 #ifdef ENABLE_SYMBOLICLINK
 #include "SymbolicLink.h"
 #endif
+#ifdef ENABLE_CUT
+#include "Cut.h"
+#endif
 
 JobFactory* JobFactory::Create() {
     JobFactory* factory = new JobFactory();
@@ -33,6 +36,11 @@ JobFactory* JobFactory::Create() {
         return SymbolicLinkJob::Create(jobKamsi);
     });
 #endif
+#ifdef ENABLE_CUT
+    factory->add(JobType::CUT, [jobKamsi]() -> IJob* {
+        return CutJob::Create(jobKamsi);
+    });
+#endif
     return factory;
 }
 
@@ -46,7 +54,9 @@ JobFactory::~JobFactory(){
 #ifdef ENABLE_SYMBOLICLINK
     this->remove(JobType::SYMBOLICLINK);
 #endif
-    
+#ifdef ENABLE_CUT
+    this->remove(JobType::CUT);
+#endif
     if (kamsi) {
         kamsi->UnRegister();
         kamsi = nullptr;
