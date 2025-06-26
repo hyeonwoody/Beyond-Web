@@ -24,6 +24,19 @@ protected:
         : ITask(className, taskType) {}
 public:
 
+        /**
+     * @brief The FFmpeg format context used for input demuxing.
+     * 
+     * This context is initialized in the `Create` factory method using
+     * `avformat_open_input`, and closed in the destructor via `avformat_close_input`.
+     *
+     * Ownership:
+     * - Allocated and opened when a `ICode` is created.
+     * - Automatically closed when the instance is destroyed.
+     *
+     * This ensures proper resource management and prevents leaks when demuxing
+     * input media sources.
+     */
     AVFormatContext* formatContext = nullptr;
     virtual ~ICode() {
         return;
