@@ -69,14 +69,6 @@ const AVOutputFormat* EncodeTask::GetOutputFormat() {
     return formatContext->oformat;
 }
 
-int EncodeTask::Seek(int streamIndex, int64_t minTimetamp, int64_t timestamp, int64_t maxTimestamp, int tags) {
-    int ret = 0;
-    if ((ret = avformat_seek_file(formatContext, streamIndex, minTimetamp, timestamp, maxTimestamp, tags)) < 0) {
-        char errBuf[128];
-        av_strerror(ret, errBuf, sizeof(errBuf));
-    }
-    return ret;
-}
 
 bool EncodeTask::RequireFileHandle() {
     return !(formatContext->flags & AVFMT_NOFILE);

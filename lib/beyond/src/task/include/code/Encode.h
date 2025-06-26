@@ -16,5 +16,4 @@ public:
     const AVOutputFormat* GetOutputFormat();
     bool RequireFileHandle();
     void OpenFile();
-    int Seek(int streamIndex, int64_t minTimetamp, int64_t timestamp, int64_t maxTimestamp, int tags);
 };

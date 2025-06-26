@@ -71,4 +71,14 @@ public:
     void SetCodecAt(size_t index, AVCodecParameters* codecParams) {
         avcodec_parameters_copy(formatContext->streams[index]->codecpar, codecParams);
     }
+
+    int Seek(AVFormatContext* fCtx, int streamIndex, int64_t minTimestamp, int64_t timestamp, int64_t maxTimestamp, int tags) {
+        int ret = 0;
+        if ((ret = avformat_seek_file(fCtx, streamIndex, minTimestamp, timestamp, maxTimestamp, tags)) < 0) {
+            char errBuf[128];
+            av_strerror(ret, errBuf, sizeof(errBuf));
+            kamsi->Error(getClassName(), "Seek", std::string("Failed to seek: ") + errBuf);
+        }
+        return ret;
+    }
 };

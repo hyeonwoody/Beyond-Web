@@ -13,5 +13,5 @@ public:
     virtual ~DecodeTask();
     void execute() override;
     int GetStreamInfo() override;
-    int Seek(int streamIndex, int64_t minTimetamp, int64_t timestamp, int64_t maxTimestamp, int tags);
+   
 };
