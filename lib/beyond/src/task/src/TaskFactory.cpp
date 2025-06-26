@@ -4,6 +4,7 @@
 #include "FileBridge.h"
 #include "Decode.h"
 #include "Encode.h"
+#include "DeMux.h"
 #include "Mux.h"
 
 TaskFactory* TaskFactory::Create() {
@@ -31,6 +32,9 @@ TaskFactory* TaskFactory::Create() {
     factory->add(TaskType::MUX, [sharedKamsi](std::any arg) -> ITask* {
         return MuxTask::Create(sharedKamsi);
     });
+    factory->add(TaskType::DEMUX, [sharedKamsi](std::any arg) -> ITask* {
+        return DeMuxTask::Create(sharedKamsi);
+    });
     return factory;
 }
 
@@ -41,6 +45,7 @@ TaskFactory::~TaskFactory()
     this->remove(TaskType::FILEBRIDGE);
     this->remove(TaskType::DECODE);
     this->remove(TaskType::ENCODE);
+    this->remove(TaskType::DEMUX);
     this->remove(TaskType::MUX);
     if (sharedKamsi) {
         sharedKamsi->UnRegister();

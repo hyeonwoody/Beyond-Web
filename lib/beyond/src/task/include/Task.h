@@ -13,6 +13,7 @@ enum class TaskType {
     FILEBRIDGE,
     DECODE,
     ENCODE,
+    DEMUX,
     MUX,
 };
 
